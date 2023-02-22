@@ -1,5 +1,5 @@
 name: c++ application release
- 
+
 on:
   push:
     tags:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [macos-12,ubuntu-22.04,windows-2022]
+        os: [macos-12, ubuntu-22.04, windows-2022]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,22 +24,18 @@ jobs:
       - uses: lukka/get-cmake@latest
         with:
           cmakeVersion: 3.24.3
-          ninjaVersion:  1.11.1
+          ninjaVersion: 1.11.1
 
-        
- 
       - name: run-vcpkg
         uses: lukka/run-vcpkg@v10
         id: runvcpkg
         with:
-          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgDirectory: "${{ github.workspace }}/vcpkg"
           vcpkgJsonGlob: "vcpkg.json"
-          
-          
+
       - name: add pkg-config for macos
         if: matrix.os == 'macos-12'
-        run:  brew install pkg-config
-
+        run: brew install pkg-config
 
       - name: Run CMake+vcpkg
         run: |
@@ -53,7 +49,7 @@ jobs:
           ctest --verbose -C Release -T test --output-on-failure
 
       - name: add  windows vcdll
-        if: matrix.os == 'windows-2022' 
+        if: matrix.os == 'windows-2022'
         run: |
           copy C:/Windows/system32/msvcp140*  ./build/target/Release
           copy C:/Windows/system32/vcruntime140*  ./build/target/Release
@@ -64,7 +60,6 @@ jobs:
         with:
           pathSource: ./build/target
           pathTarget: ${{ matrix.os }}.tar
-
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -85,7 +80,7 @@ jobs:
           os.system("echo 'NOTE<<EOF' >> $GITHUB_ENV")
           tmp=[os.system("echo '{}' >> $GITHUB_ENV".format(n.strip())) for n in note ]
           os.system("echo 'EOF' >> $GITHUB_ENV")
-          
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:

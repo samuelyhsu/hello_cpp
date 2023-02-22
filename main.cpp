@@ -1,4 +1,4 @@
-
+#include "MQTTClient.h"
 #include "spdlog/spdlog.h"
 #include "test.pb.h"
 #include <Eigen/Dense>
@@ -8,8 +8,6 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
-
-#include "MQTTClient.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

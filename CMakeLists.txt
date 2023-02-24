@@ -13,6 +13,9 @@ if(MSVC)
     add_compile_definitions(NOMINMAX)
 endif(MSVC)
 
+include(CTest)
+enable_testing()
+
 add_subdirectory(hello)
 add_subdirectory(tests)
 
@@ -41,6 +44,3 @@ if(WIN32)
 else()
     target_link_libraries(common_lib INTERFACE PahoMqttCpp::paho-mqttpp3-static)
 endif()
-
-include(CTest)
-enable_testing()

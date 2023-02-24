@@ -44,6 +44,7 @@ TEST_CASE("basic calculations", "[eigen]") {
       5, 8,  //
       6, 9;
   spdlog::info("m\n{}", fmt::streamed(m));
+  // FIXME 这里因为矩阵维度不合会导致断言失败，但是catch2还无法捕获这种问题
   MatrixXd res = v - m;
   spdlog::info("v-m\n{}", fmt::streamed(res));
 }

@@ -13,6 +13,9 @@ if(MSVC)
     add_compile_definitions(NOMINMAX)
 endif(MSVC)
 
+add_subdirectory(hello)
+add_subdirectory(tests)
+
 add_library(common_lib INTERFACE)
 
 find_package(Protobuf REQUIRED)
@@ -39,13 +42,5 @@ else()
     target_link_libraries(common_lib INTERFACE PahoMqttCpp::paho-mqttpp3-static)
 endif()
 
-add_executable(main main.cpp)
-target_link_libraries(main PRIVATE common_lib)
-
-add_executable(test_main test_main.cpp)
-find_package(Catch2 REQUIRED)
-target_link_libraries(test_main PRIVATE common_lib Catch2::Catch2WithMain)
-
 include(CTest)
 enable_testing()
-add_test(NAME test_main COMMAND test_main)
